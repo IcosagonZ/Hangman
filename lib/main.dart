@@ -30,7 +30,10 @@ class Page_Main extends StatefulWidget
   State<Page_Main> createState() => _Page_MainState();
 }
 
-class _Page_MainState extends State<Page_Main> {
+class _Page_MainState extends State<Page_Main>
+{
+  // Visibility variables
+  int person_state = 7;
 
   @override
   Widget build(BuildContext context)
@@ -41,12 +44,62 @@ class _Page_MainState extends State<Page_Main> {
       (
         title: Text("Hangman"),
       ),
-      body: Center
+      body: Padding
       (
+        padding: EdgeInsets.all(16),
         child: Column
         (
           children: <Widget>
           [
+            Expanded
+            (
+              child: Center
+              (
+                child:  Stack
+                (
+                  alignment: Alignment.center,
+                  children: <Widget>
+                  [
+                    Image.asset("assets/person/person_0.png"),
+                    Visibility
+                    (
+                      visible: person_state>=1,
+                      child: Image.asset("assets/person/person_1.png"),
+                    ),
+                    Visibility
+                    (
+                      visible: person_state>=2,
+                      child: Image.asset("assets/person/person_2.png"),
+                    ),
+                    Visibility
+                    (
+                      visible: person_state>=3,
+                      child: Image.asset("assets/person/person_3.png"),
+                    ),
+                    Visibility
+                    (
+                      visible: person_state>=4,
+                      child: Image.asset("assets/person/person_4.png"),
+                    ),
+                    Visibility
+                    (
+                      visible: person_state>=5,
+                      child: Image.asset("assets/person/person_5.png"),
+                    ),
+                    Visibility
+                    (
+                      visible: person_state>=6,
+                      child: Image.asset("assets/person/person_6.png"),
+                    ),
+                    Visibility
+                    (
+                      visible: person_state>=7,
+                      child: Image.asset("assets/person/person_7.png"),
+                    ),
+                  ]
+                )
+              )
+            ),
             Text("Hello"),
           ],
         ),
