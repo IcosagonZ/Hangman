@@ -38,6 +38,43 @@ class _Page_MainState extends State<Page_Main>
   // Visibility variables
   int person_state = 7;
 
+  // Keyboard generation variables
+  String row0  = "qwertyuiop";
+  String row1 = "asdfghjkl";
+  String row2 = "zxcvbnm";
+
+  String used = "";
+
+  // Keyboard button generation variable
+  List <Widget> keyboardGenerateButtons(String row)
+  {
+    return List<Widget>.generate(row.length, (index)
+    {
+      return Expanded
+      (
+        child: TextButton
+        (
+          onPressed: !used.contains(row[index]) ? ()
+          {
+            print("Pressed ${row[index]}");
+          } : null,
+          child: Text
+          (
+            row[index],
+            style: TextStyle
+            (
+              fontSize: 20,
+            )
+          ),
+          style: ElevatedButton.styleFrom
+          (
+            minimumSize: Size(double.infinity, double.infinity),
+          ),
+        )
+      );
+    });
+  }
+
   @override
   Widget build(BuildContext context)
   {
@@ -57,6 +94,7 @@ class _Page_MainState extends State<Page_Main>
             // Person image
             Expanded
             (
+              flex: 4,
               child: Center
               (
                 child:  Stack
@@ -115,7 +153,37 @@ class _Page_MainState extends State<Page_Main>
               )
             ),
             // Keyboard
-            Text("Hello"),
+            Expanded
+            (
+              flex: 2,
+              child: Column
+              (
+                children:
+                [
+                  Expanded
+                  (
+                    child: Row
+                    (
+                      children: keyboardGenerateButtons(row0),
+                    ),
+                  ),
+                  Expanded
+                  (
+                    child: Row
+                    (
+                      children: keyboardGenerateButtons(row1),
+                    ),
+                  ),
+                  Expanded
+                  (
+                    child: Row
+                    (
+                      children: keyboardGenerateButtons(row2),
+                    ),
+                  ),
+                ]
+              ),
+            ),
           ],
         ),
       ),
