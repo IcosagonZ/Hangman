@@ -59,6 +59,7 @@ flutter:
 
   assets:
     - assets/person/
+    - assets/wordlist/
 
   fonts:
     - family: monofett
