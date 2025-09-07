@@ -32,6 +32,9 @@ class Page_Main extends StatefulWidget
 
 class _Page_MainState extends State<Page_Main>
 {
+  // Game variables
+  String game_word_display = "h e l l o";
+
   // Visibility variables
   int person_state = 7;
 
@@ -51,6 +54,7 @@ class _Page_MainState extends State<Page_Main>
         (
           children: <Widget>
           [
+            // Person image
             Expanded
             (
               child: Center
@@ -100,6 +104,17 @@ class _Page_MainState extends State<Page_Main>
                 )
               )
             ),
+            // Text entry
+            Text
+            (
+              game_word_display,
+              style: TextStyle
+              (
+                fontFamily: "monofett",
+                fontSize: 50,
+              )
+            ),
+            // Keyboard
             Text("Hello"),
           ],
         ),
