@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter/services.dart' show rootBundle;
-
-import 'dart:convert';
-import 'dart:math';
+import 'game_data.dart';
+import 'page_win.dart';
+import 'page_lost.dart';
 
 void main()
 {
@@ -47,10 +46,6 @@ class _Page_MainState extends State<Page_Main>
   String game_letters_correct = ""; // Controls visibility of text on game word display
   String game_letters_used = ""; // Controls visibility of used letters
 
-  var words;
-  var words_keys_list;
-  var words_total = 0;
-
   int game_tries_max = 7;
   int game_tries_incorrect = 0; // Controls visibility of man
 
@@ -59,41 +54,24 @@ class _Page_MainState extends State<Page_Main>
   String row1 = "asdfghjkl";
   String row2 = "zxcvbnm";
 
-  // Random number finder
-  int randomNumber(int min, int max)
+  // Win page
+  void page_open_win(BuildContext context)
   {
-    final random = Random();
-    return min + random.nextInt(max - min + 1);
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)
+    {
+      return Page_Win();
+    }
+    ));
   }
 
-  // JSON loader
-  Future<void> jsonLoad() async
+  // Lost page
+  void page_open_lost(BuildContext context)
   {
-    String jsonString = await rootBundle.loadString("assets/wordlist/clues_four.json");
-
-    var jsonData = jsonDecode(jsonString);
-    print(jsonData["description"]);
-
-    words = jsonData["data"];
-    words_keys_list = words.keys.toList();
-    words_total = words.length;
-
-    print(words_total);
-  }
-
-  // Word loader
-  String word_retrive()
-  {
-    if(words_keys_list!=null)
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)
     {
-      var _game_word = words_keys_list[randomNumber(0, words_total)];
-      print(_game_word);
-      return _game_word;
+      return Page_Lost();
     }
-    else
-    {
-      return "none";
-    }
+    ));
   }
 
   void word_display_update()
@@ -123,29 +101,32 @@ class _Page_MainState extends State<Page_Main>
     {
       game_letters_used+=letter;
       game_tries_incorrect++;
-      if(game_tries_incorrect>game_tries_max)
-      {
-        game_lost=true;
-        print("GAME: Lost");
-      }
     }
   }
 
-  void word_check_win()
+  void word_check_win(BuildContext context)
   {
     if(game_word==game_word_display)
     {
       game_won=true;
       print("GAME: Win");
+      page_open_win(context);
+    }
+
+    if(game_tries_incorrect>game_tries_max)
+    {
+      game_lost=true;
+      print("GAME: Lost");
+      page_open_lost(context);
     }
   }
 
-  void ui_restart_clicked()
+  Future<void> ui_restart_clicked() async
   {
+    game_word = await word_retrive(); // Pick word randomly
+
     setState(()
     {
-      game_word = word_retrive(); // Pick word randomly
-
       // Reset game variables
       game_won = false;
       game_lost = false;
@@ -160,19 +141,19 @@ class _Page_MainState extends State<Page_Main>
     );
   }
 
-  void ui_keyboard_clicked(String letter)
+  void ui_keyboard_clicked(BuildContext context, String letter)
   {
     setState(()
     {
       word_pressed(letter);
       word_display_update();
-      word_check_win();
+      word_check_win(context);
     }
     );
   }
 
   // Keyboard button generation variable
-  List <Widget> keyboardGenerateButtons(String row)
+  List <Widget> keyboardGenerateButtons(BuildContext context, String row)
   {
     return List<Widget>.generate(row.length, (index)
     {
@@ -182,8 +163,7 @@ class _Page_MainState extends State<Page_Main>
         (
           onPressed: !game_letters_used.contains(row[index]) ? ()
           {
-            ui_keyboard_clicked(row[index]);
-            word_display_update();
+            ui_keyboard_clicked(context, row[index]);
           } : null,
           child: Text
           (
@@ -206,7 +186,7 @@ class _Page_MainState extends State<Page_Main>
   void initState()
   {
     super.initState();
-    jsonLoad();
+    ui_restart_clicked();
   }
 
   @override
@@ -219,14 +199,6 @@ class _Page_MainState extends State<Page_Main>
         title: Text("Hangman"),
         actions:
         [
-          ElevatedButton
-          (
-            child: Text("Refresh"),
-            onPressed: ()
-            {
-              ui_restart_clicked();
-            }
-          )
         ]
       ),
       body: Padding
@@ -309,21 +281,21 @@ class _Page_MainState extends State<Page_Main>
                   (
                     child: Row
                     (
-                      children: keyboardGenerateButtons(row0),
+                      children: keyboardGenerateButtons(context, row0),
                     ),
                   ),
                   Expanded
                   (
                     child: Row
                     (
-                      children: keyboardGenerateButtons(row1),
+                      children: keyboardGenerateButtons(context, row1),
                     ),
                   ),
                   Expanded
                   (
                     child: Row
                     (
-                      children: keyboardGenerateButtons(row2),
+                      children: keyboardGenerateButtons(context, row2),
                     ),
                   ),
                 ]
