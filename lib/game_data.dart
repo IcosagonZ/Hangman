@@ -53,7 +53,7 @@ Future<String> word_retrive(String wordlist_selected) async
     {
       var _game_word = words_keys_list[randomNumber(0, words_total)];
       clue_list = words[_game_word];
-      print(_game_word);
+      //print(_game_word);
       return _game_word;
     }
   }

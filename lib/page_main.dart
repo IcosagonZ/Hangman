@@ -94,14 +94,14 @@ class _Page_MainState extends State<Page_Main>
     if(game_word==game_word_display)
     {
       game_won=true;
-      print("GAME: Win");
+      //print("GAME: Win");
       page_open_win(context);
     }
 
     if(game_tries_incorrect>game_tries_max)
     {
       game_lost=true;
-      print("GAME: Lost");
+      //print("GAME: Lost");
       page_open_lost(context);
     }
   }
