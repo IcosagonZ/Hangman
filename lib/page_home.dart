@@ -28,6 +28,7 @@ class _Page_HomeState extends State<Page_Home>
 
     return Scaffold
     (
+      /*
       appBar: AppBar
       (
         title: Text("Hangman"),
@@ -35,6 +36,7 @@ class _Page_HomeState extends State<Page_Home>
         [
         ],
       ),
+      */
       body: SizedBox.expand
       (
         child: Padding
@@ -46,7 +48,13 @@ class _Page_HomeState extends State<Page_Home>
             [
               Expanded
               (
-                child: Text("Hangman"),
+                child: Center(
+                  child: Text
+                (
+                  "Hangman",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 32),
+                )),
               ),
               Padding
               (

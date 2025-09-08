@@ -177,13 +177,44 @@ class _Page_MainState extends State<Page_Main>
   @override
   Widget build(BuildContext context)
   {
+    // Theme variables
+    final color_scheme = Theme.of(context).colorScheme;
+    Color color_primary = color_scheme.primary;
+    Color color_background = color_scheme.onBackground;
+
     return Scaffold
     (
       appBar: AppBar
       (
-        title: Text("Hangman"),
         actions:
         [
+          IconButton
+          (
+            icon: Icon(Icons.help),
+            tooltip: "Clue",
+            onPressed: ()
+            {
+              final clueSnackBar = SnackBar
+              (
+                content: Text(clue_retrive()),
+              );
+              ScaffoldMessenger.of(context).showSnackBar(clueSnackBar);
+            }
+          ),
+          Expanded(child: SizedBox(width: 1)),
+          IconButton
+          (
+            icon: Icon(Icons.home),
+            tooltip: "Home",
+            onPressed: (()
+            {
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)
+              {
+                return Page_Home();
+              }
+              ));
+            }),
+          )
         ]
       ),
       body: Padding
@@ -286,6 +317,7 @@ class _Page_MainState extends State<Page_Main>
                 ]
               ),
             ),
+            SizedBox(height: 32),
           ],
         ),
       ),

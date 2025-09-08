@@ -20,6 +20,7 @@ class _Page_LostState extends State<Page_Lost>
 
     return Scaffold
     (
+      /*
       appBar: AppBar
       (
         title: Text("Hangman"),
@@ -27,6 +28,7 @@ class _Page_LostState extends State<Page_Lost>
         [
         ],
       ),
+      */
       body: SizedBox.expand
       (
         child: Padding
@@ -38,7 +40,15 @@ class _Page_LostState extends State<Page_Lost>
             [
               Expanded
               (
-                child: Text("You lost"),
+                child: Center
+                (
+                  child: Text
+                  (
+                    "You lost",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 32),
+                  )
+                ),
               ),
               Row
               (

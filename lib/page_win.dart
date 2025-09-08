@@ -20,6 +20,7 @@ class _Page_WinState extends State<Page_Win>
 
     return Scaffold
     (
+      /*
       appBar: AppBar
       (
         title: Text("Hangman"),
@@ -27,6 +28,7 @@ class _Page_WinState extends State<Page_Win>
         [
         ],
       ),
+      */
       body: SizedBox.expand
       (
         child: Padding
@@ -38,7 +40,15 @@ class _Page_WinState extends State<Page_Win>
             [
               Expanded
               (
-                child: Text("You won"),
+                child: Center
+                (
+                  child: Text
+                  (
+                    "You won",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 32),
+                  )
+                ),
               ),
               Row
               (

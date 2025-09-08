@@ -17,7 +17,17 @@ class MyApp extends StatelessWidget
     return MaterialApp
     (
       title: "Hangman",
-      theme: ThemeData.dark(),
+      theme: ThemeData.dark().copyWith
+      (
+        snackBarTheme: SnackBarThemeData
+        (
+          backgroundColor: Color.fromRGBO(18,11,33,1),
+          contentTextStyle: TextStyle
+          (
+            color: Color.fromRGBO(255,255,255,1),
+          ),
+        )
+      ),
       debugShowCheckedModeBanner: false,
       home: Page_Home(),
     );

@@ -11,6 +11,8 @@ var words;
 var words_keys_list;
 var words_total = 0;
 
+var clue_list;
+
 // Random number finder
 int randomNumber(int min, int max)
 {
@@ -50,10 +52,21 @@ Future<String> word_retrive(String wordlist_selected) async
     if(words_keys_list!=null)
     {
       var _game_word = words_keys_list[randomNumber(0, words_total)];
+      clue_list = words[_game_word];
       print(_game_word);
       return _game_word;
     }
   }
 
-  return "none";
+  return "None";
+}
+
+String clue_retrive()
+{
+  if(wordlist_loaded)
+  {
+    return clue_list[randomNumber(0, clue_list.length-1)];
+  }
+
+  return "No clues available";
 }
