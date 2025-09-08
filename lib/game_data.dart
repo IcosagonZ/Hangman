@@ -4,6 +4,7 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'dart:convert';
 import 'dart:math';
 
+var wordlist_path = "assets/wordlist/clues_four.json";
 var wordlist_loaded = false;
 
 var words;
@@ -18,9 +19,9 @@ int randomNumber(int min, int max)
 }
 
 // JSON loader
-Future<void> jsonLoad() async
+Future<void> jsonLoad(String wordlist_selected) async
 {
-  String jsonString = await rootBundle.loadString("assets/wordlist/clues_four.json");
+  String jsonString = await rootBundle.loadString(wordlist_selected);
 
   var jsonData = jsonDecode(jsonString);
   //print(jsonData["description"]);
@@ -31,16 +32,17 @@ Future<void> jsonLoad() async
 
   //print(words_total);
   wordlist_loaded = true;
+  wordlist_path = wordlist_selected;
 
   print("GAME: Loaded wordlist");
 }
 
 // Word loader
-Future<String> word_retrive() async
+Future<String> word_retrive(String wordlist_selected) async
 {
-  if(!wordlist_loaded)
+  if(!wordlist_loaded || wordlist_selected!=wordlist_path)
   {
-    await jsonLoad();
+    await jsonLoad(wordlist_selected);
   }
 
   if(wordlist_loaded)

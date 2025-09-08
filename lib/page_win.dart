@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'main.dart';
+import 'game_data.dart';
+import 'page_home.dart';
+import 'page_main.dart';
 
 class Page_Win extends StatefulWidget
 {
@@ -51,7 +53,7 @@ class _Page_WinState extends State<Page_Win>
                       {
                         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)
                           {
-                            return Page_Main();
+                            return Page_Main(word_list_selected: wordlist_path);
                           }
                         ));
                       }
@@ -64,7 +66,11 @@ class _Page_WinState extends State<Page_Win>
                       child: Text("Go home"),
                       onPressed: ()
                       {
-
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)
+                          {
+                            return Page_Home();
+                          }
+                        ));
                       }
                     ),
                   ),
